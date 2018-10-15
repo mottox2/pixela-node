@@ -52,10 +52,28 @@ class Client {
     })
   }
 
+  getGraphUrl(graphId: string) {
+    return `/users/${this.username}/graphs/${graphId}`
+  }
+
   getGraph(graphId: string) {
     return this.client.request<any>({
       method: 'get',
-      url: `/users/${this.username}/graphs/${graphId}`
+      url: this.getGraphUrl(graphId)
+    })
+  }
+
+  incrementPixcel(graphId: string) {
+    return this.client.request<any>({
+      method: 'put',
+      url: `/users/${this.username}/graphs/${graphId}/increment`
+    })
+  }
+
+  decrementPixcel(graphId: string) {
+    return this.client.request<any>({
+      method: 'put',
+      url: `/users/${this.username}/graphs/${graphId}/decrement`
     })
   }
 
