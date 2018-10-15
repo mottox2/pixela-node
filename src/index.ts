@@ -53,24 +53,24 @@ class Client {
   }
 
   getGraphUrl(graphId: string) {
-    return `/users/${this.username}/graphs/${graphId}`
+    return `https://pixe.la/v1/users/${this.username}/graphs/${graphId}`
   }
 
   getGraph(graphId: string) {
     return this.client.request<any>({
       method: 'get',
-      url: this.getGraphUrl(graphId)
+      url: `/users/${this.username}/graphs/${graphId}`
     })
   }
 
-  incrementPixcel(graphId: string) {
+  incrementPixel(graphId: string) {
     return this.client.request<any>({
       method: 'put',
       url: `/users/${this.username}/graphs/${graphId}/increment`
     })
   }
 
-  decrementPixcel(graphId: string) {
+  decrementPixel(graphId: string) {
     return this.client.request<any>({
       method: 'put',
       url: `/users/${this.username}/graphs/${graphId}/decrement`

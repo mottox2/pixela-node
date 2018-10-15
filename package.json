@@ -1,7 +1,7 @@
 {
   "name": "pixela-node",
   "description": "Pixela API Client for nodejs",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "license": "MIT",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "run:sample": "babel-node src/sample.ts --extensions .ts",
-    "build": "tsc --emitDeclarationOnly && babel src/index.ts --out-dir lib/ --extensions .ts",
+    "build": "rm -rf lib/ && tsc --emitDeclarationOnly && babel src/index.ts --out-dir lib/ --extensions .ts",
     "prepublish": "npm run build"
   },
   "dependencies": {
