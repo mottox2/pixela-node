@@ -27,6 +27,17 @@ const client = new Client()
 client.username = 'your_username'
 client.token = 'your_token'
 
+// Create User
+client
+  .createUser({
+    token: 'your_token',
+    username: 'your_username',
+    agreeTermsOfService: 'yes',
+    notMinor: 'yes'
+  })
+  .then(res => console.log(res.data))
+  .catch(e => console.log(e.response.data))
+
 // Create Graph
 client
   .createGraph({
