@@ -1,18 +1,22 @@
 {
   "name": "pixela-node",
-  "version": "1.0.0",
-  "main": "index.js",
+  "description": "Pixela API Client for nodejs",
+  "version": "0.0.1",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.1.2",
-    "@babel/node": "^7.0.0",
     "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
-    "@babel/preset-typescript": "^7.1.0"
+    "@babel/preset-typescript": "^7.1.0",
+    "typescript": "^3.1.3"
   },
   "scripts": {
     "run:sample": "babel-node src/sample.ts --extensions .ts",
-    "build": "babel src/index.ts --out-dir lib/ --extensions .ts"
+    "build": "tsc --emitDeclarationOnly && babel src/index.ts --out-dir lib/ --extensions .ts",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "axios": "^0.18.0"
