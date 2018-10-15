@@ -1,11 +1,23 @@
 import axios, { AxiosInstance } from 'axios'
 
-interface Graph {
+type GraphAttributes = ImmutableGraphAttributes & MutableGraphAttributes
+
+interface ImmutableGraphAttributes {
   id: string
+  type: 'int' | 'float'
+}
+
+interface MutableGraphAttributes {
   name: string
   unit: string
-  type: 'int' | 'float'
   color: 'shibafu' | 'momiji' | 'sora' | 'ichou' | 'ajisai' | 'kuro'
+}
+
+interface UserAttributes {
+  token: string
+  username: string
+  agreeTermsOfService: 'yes' | 'no'
+  notMinor: 'yes' | 'no'
 }
 
 class Client {
@@ -35,7 +47,30 @@ class Client {
     return this._token
   }
 
-  createGraph(graph: Graph) {
+  createUser(user: UserAttributes) {
+    return this.client.request<any>({
+      method: 'post',
+      url: '/users',
+      data: user
+    })
+  }
+
+  updateUser(newToken: string) {
+    return this.client.request<any>({
+      method: 'put',
+      url: `/users/${this.username}`,
+      data: { newToken }
+    })
+  }
+
+  deleteUser(newToken: string) {
+    return this.client.request<any>({
+      method: 'delete',
+      url: `/users/${this.username}`
+    })
+  }
+
+  createGraph(graph: GraphAttributes) {
     return this.client.request<any>({
       method: 'post',
       url: `/users/${this.username}/graphs`,
@@ -63,6 +98,46 @@ class Client {
     })
   }
 
+  updateGraph(graphId: string, attributes: MutableGraphAttributes) {
+    return this.client.request<any>({
+      method: 'put',
+      url: `/users/${this.username}/graphs/${graphId}`,
+      data: attributes
+    })
+  }
+
+  deleteGraph(graphId: string) {
+    return this.client.request<any>({
+      method: 'delete',
+      url: `/users/${this.username}/graphs/${graphId}`
+    })
+  }
+
+  createPixel(graphId: string, pixel: { quantity: string; date: string }) {
+    return this.client.request<any>({
+      method: 'post',
+      url: `/users/${this.username}/graphs/${graphId}`,
+      data: {
+        ...pixel
+      }
+    })
+  }
+
+  getPixel(graphId: string, date: string) {
+    return this.client.request<any>({
+      method: 'get',
+      url: `/users/${this.username}/graphs/${graphId}/${date}`
+    })
+  }
+
+  UpdatePixel(graphId: string, date: string, quantity: string) {
+    return this.client.request<any>({
+      method: 'put',
+      url: `/users/${this.username}/graphs/${graphId}/${date}`,
+      data: { quantity }
+    })
+  }
+
   incrementPixel(graphId: string) {
     return this.client.request<any>({
       method: 'put',
@@ -77,13 +152,10 @@ class Client {
     })
   }
 
-  createPixel(graphId: string, pixel: { quantity: string; date: string }) {
+  deletePixel(graphId: string, date: string) {
     return this.client.request<any>({
-      method: 'post',
-      url: `/users/${this.username}/graphs/${graphId}`,
-      data: {
-        ...pixel
-      }
+      method: 'delete',
+      url: `/users/${this.username}/graphs/${graphId}/${date}`
     })
   }
 }
