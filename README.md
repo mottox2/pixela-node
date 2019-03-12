@@ -54,7 +54,7 @@ client
 client.getGraphs().then(res => console.log(res.data))
 
 // Increment Pixel
-client.incrementPixcel('kintore').then(res => {
+client.incrementPixel('kintore').then(res => {
   console.log(res.data)
 })
 
